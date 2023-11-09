@@ -80,3 +80,35 @@ The body of Selsort:
   } // end of method Selsort::SelectionSort
 ```
 
+## Exercise 9.2
+
+### i
+
+Commands Typed In Console:
+```
+csc /o StringConcatSpeed.cs
+StringConcatSpeed
+```
+
+Result:
+```
+Initialization: Building array of small strings
+
+Concatenate using StringBuilder:
+Result length: 168894;    time:   0.000 sec
+
+
+Press return to continue...
+
+
+Concatenate using repeated string concatenation:
+Result length: 168894;    time:   0.839 sec
+```
+
+### ii
+
+Following the given instruction shows that the naive StringConcatSpeed peaked at ~60% of time in GC. This was measured on .NET 7.0
+
+### iii
+
+In order to test this, I checked the % time in GC of and Instance called DSAService, which was running in the background, which Peaked at ~0.1% of time in GC
