@@ -2,7 +2,7 @@
 
 ## Exercise 9.1
 
-(i)
+### i
 
 Commands typed into console:
 ```
@@ -80,14 +80,86 @@ The body of Selsort:
   } // end of method Selsort::SelectionSort
 ```
 
+### ii
+
+Commands typed into console:
+```
+>javac .\Selsort.java
+>javap -verbose -c Selsort.class > Selsort.jvmbytecode
+```
+
+Body of Selsort.jvmbytecode
+```
+stack=4, locals=4, args_size=1
+//First for header
+         0: iconst_0            //push const 0 onto stack
+         1: istore_1            //stores the const 0 as var i
+         2: iload_1             //loads var i on top of the stack
+         3: aload_0             //loads var arr (which was the arg) on top of the stack
+         4: arraylength         //pops arr of stack and pushes arr.length on top of the stack
+         5: if_icmpge     57    //for comparison, if i >= arr.length, return, else continue in loop
+
+//First for body
+         8: iload_1             //loads var i
+         9: istore_2            //stores the value of var i as var least
+
+//Second for header
+        10: iload_1             //loads var i
+        11: iconst_1            //pushes const 1 to stack
+        12: iadd                //adds i and 1, aka the value of j, and pushes it to the stack
+        13: istore_3            //stores the value of j, as var j
+        14: iload_3             //loads var j on top of the stack
+        15: aload_0             //loads var arr
+        16: arraylength         //pops, value of arr, pushes arr.length
+        17: if_icmpge     37    //if j >= arr.length, jump to end of nested for, else continue in nested loop
+
+//Second for body
+//if(arr[j] < arr[least])
+        20: aload_0             //loads var arr
+        21: iload_3             //loads var j
+        22: iaload              //loads the value of arr[j]
+        23: aload_0             //loads var arr
+        24: iload_2             //loads var least
+        25: iaload              //loads the value of arr[least]
+        26: if_icmpge     31    //if arr[j] >= arr[least], jump past the if body, else continue through the if
+
+//If body
+        29: iload_3             //loads var j
+        30: istore_2            //store the value of j in least, aka: least = j
+
+//end of if body
+        31: iinc          3, 1  //increment var j
+        34: goto          14    //check second for header again
+
+//end of second for body
+//int tmp = arr[i]; arr[i] = arr[least]; arr[least] = tmp;
+        37: aload_0             //load var arr
+        38: iload_1             //load var i
+        39: iaload              //find arr[i]
+        40: istore_3            //store as var tmp (var j is now out of scope, so 3 is free again)
+        41: aload_0             //load var arr
+        42: iload_1             //load var i
+        43: aload_0             //load var arr
+        44: iload_2             //load var least
+        45: iaload              //find arr[least]
+        46: iastore             //store arr[least] as arr[i] (arr[i] = arr[least]) -> iastore arr, i, arr[least]
+        47: aload_0             //load arr
+        48: iload_2             //load least
+        49: iload_3             //load tmp
+        50: iastore             //store tmp as arr[least] (arr[least] = tmp)-> iastore arr, least, tmp
+        51: iinc          1, 1  //increment var i
+        54: goto          2     //Check first for loop header again
+        57: return              //returns the SelectionSort function call, to return address saved in stackframe
+```
+
 ## Exercise 9.2
 
 ### i
 
 Commands Typed In Console:
 ```
-csc /o StringConcatSpeed.cs
-StringConcatSpeed
+>csc /o StringConcatSpeed.cs
+>StringConcatSpeed
 ```
 
 Result:
